@@ -13,13 +13,6 @@ export default {
             return this.$store.getters.stocks
         }
     }
-    // data() {
-    //     return {
-    //         stocks: [
-    //         ]
-    //     }
-    // }
-
 }
 </script>
 

@@ -29,6 +29,7 @@ export default {
                 stockPrice: this.stock.price,
                 quantity: this.quantity
             }
+            this.$store.dispatch('buyStock', order) //dispatch usa-se para invocar uma action e a action realiza o commit para uma mutation buyStock que esta no modulo de porfolio
             // eslint-disable-next-line
             console.log(order);
             this.quantity = 0

@@ -10,7 +10,7 @@ export default {
     },
     actions: {
         buyStock({ commit }, order) { // o commit é responsável por chamar alguma mutation
-            commit()
+            commit('buyStock', order)
         },
         initStock({ commit }) {
         //    console.log('initStocks')
