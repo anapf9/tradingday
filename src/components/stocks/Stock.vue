@@ -29,6 +29,7 @@ export default {
                 stockPrice: this.stock.price,
                 quantity: this.quantity
             }
+            // eslint-disable-next-line
             console.log(order);
             this.quantity = 0
             
