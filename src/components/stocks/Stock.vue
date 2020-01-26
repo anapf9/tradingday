@@ -9,7 +9,12 @@
         </v-card>
         <v-container fill-height>
             <v-text-field label="Quantidade" type="number" v-model.number="quantity" />
-            <v-btn class="green darken-3 white--text" @click="buyStock" :disabled="quantity<=0 || !Number.isInteger(quantity) ">Comprar</v-btn>
+            <v-btn class="green darken-3 white--text" 
+            :error="!Number.isInteger(quantity) || insufficientFunds"
+            @click="buyStock" 
+            :disabled="quantity<=0 || !Number.isInteger(quantity) || insufficientFunds">
+            {{insufficientFunds ? 'Insuficiente' : 'Comprar'}}
+            </v-btn>
         </v-container>
     </v-flex>
 </template>
@@ -22,6 +27,14 @@ export default {
             quantity: 0
         }
     },
+    computed: {
+        funds() {
+            return this.$store.getters.funds
+        },
+        insufficientFunds() {
+            return this.quantity * this.stock.price > this.funds
+        }
+    },
     methods: {
         buyStock() {
             const order = {
@@ -30,8 +43,6 @@ export default {
                 quantity: this.quantity
             }
             this.$store.dispatch('buyStock', order) //dispatch usa-se para invocar uma action e a action realiza o commit para uma mutation buyStock que esta no modulo de porfolio
-            // eslint-disable-next-line
-            console.log(order);
             this.quantity = 0
             
         }
