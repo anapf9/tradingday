@@ -1,6 +1,6 @@
 <template>
     <v-layout row wrap>
-        <Stock v-for="stock in stocks" :key="stock.id">
+        <Stock v-for="stock in stocks" :key="stock.id" :stock="stock"/>
     </v-layout>
 </template>
 
@@ -12,9 +12,9 @@ export default {
         return {
             stocks: [
                 {id: 1, name:'BMW', price: 100},
-                {id: 1, name:'Google', price: 200},
-                {id: 1, name:'Apple', price: 300},
-                {id: 1, name:'Twitter', price: 50}
+                {id: 2, name:'Google', price: 200},
+                {id: 3, name:'Apple', price: 300},
+                {id: 4, name:'Twitter', price: 50}
             ]
         }
     }
