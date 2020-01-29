@@ -7,6 +7,7 @@
     <v-toolbar-items class="hidden-sm-and-down">
       <v-btn flat to="/">Inicio</v-btn>
       <v-btn flat to="/portfolio">Portifólio</v-btn>
+      <v-btn flat to="/calculator">Calculadora</v-btn>
       <v-btn flat to="/stocks">Ações</v-btn>
     </v-toolbar-items>
     <v-spacer></v-spacer>
