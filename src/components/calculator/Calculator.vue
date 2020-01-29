@@ -1,33 +1,88 @@
 <template>
-    <div id="teste" class="calculator">
-        <Button label="AC" triple  />
-        <Button label="/" operation />
-        <Button label="7" />
-        <Button label="8" />
-        <Button label="9" />
-        <Button label="*" operation />
-        <Button label="4" />
-        <Button label="5" />
-        <Button label="6" />
-        <Button label="-" operation />
-        <Button label="1" />
-        <Button label="2" />
-        <Button label="3" />
-        <Button label="+" operation />
-        <Button label="0" double />
-        <Button label="." />
-        <Button label="=" operation />
-        <Display />
+    <div class="calculator">
+        <Display :value="displayValue" />
+        <Button label="AC" triple @onClick="clearMemory" />
+        <Button label="/" operation @onClick="setOperation" />
+        <Button label="7" @onClick="addDigit" />
+        <Button label="8" @onClick="addDigit" />
+        <Button label="9" @onClick="addDigit" />
+        <Button label="*" operation @onClick="setOperation" />
+        <Button label="4" @onClick="addDigit" />
+        <Button label="5" @onClick="addDigit" />
+        <Button label="6" @onClick="addDigit" />
+        <Button label="-" operation @onClick="setOperation" />
+        <Button label="1" @onClick="addDigit" />
+        <Button label="2" @onClick="addDigit" />
+        <Button label="3" @onClick="addDigit" />
+        <Button label="+" operation @onClick="setOperation" />
+        <Button label="0" double @onClick="addDigit" />
+        <Button label="." @onClick="addDigit" />
+        <Button label="=" operation @onClick="setOperation" />
     </div>
 </template>
 
 <script>
 import Button from "./Button"
 import Display from "./Display"
-
 export default {
-    components: { Button, Display }
-
+    data: function() {
+        return {
+            displayValue: "0",
+            clearDisplay: false,
+            operation: null,
+            values: [0, 0],
+            current: 0
+        }
+    },
+    components: { Button, Display },
+    methods: {
+        clearMemory() {
+            Object.assign(this.$data, this.$options.data()) // esta função faz com que o objeto volte ao estado inicial
+        },
+        setOperation(operation) {
+            if (this.current === 0) {
+                this.operation = operation
+                this.current = 1
+                this.clearDisplay = true
+            } else {
+                const equals = operation === "="
+                const currentOperation = this.operation
+                try {
+                    this.values[0] = eval(
+                        `${this.values[0]} ${currentOperation} ${this.values[1]}`
+                    )
+                } catch (e) {
+                    this.$emit('onError', e)
+                }
+                this.values[1] = 0
+                this.displayValue = this.values[0]
+                this.operation = equals ? null : operation
+                this.current = equals ? 0 : 1
+                this.clearDisplay = !equals
+            }
+        },
+        addDigit(n) {
+            if (n === "." && this.displayValue.includes(".")) {
+                return
+            }
+            const clearDisplay = this.displayValue === "0"
+                || this.clearDisplay
+            const currentValue = clearDisplay ? "" : this.displayValue
+            const newDisplayValue = currentValue + n
+            this.displayValue = newDisplayValue
+            this.clearDisplay = false
+            
+            // Alternativa 1
+            this.values[this.current] = newDisplayValue
+            
+            // Alternativa 2
+            // if (n !== ".") {
+            //     const i = this.current
+            //     const newValue = parseFloat(displayValue)
+            //     this.values[i] = newValue
+            // }
+        }
+    }
 }
 </script>
 
@@ -37,23 +92,8 @@ export default {
     width: 235px;
     border-radius: 5px;
     overflow: hidden;
-
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-
-    display: grid;
+    display: grid; 
     grid-template-columns: repeat(4, 25%);
     grid-template-rows: 1fr 48px 48px 48px 48px 48px;
 }
-/* #teste {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    color: #fff;
-} */
-
 </style>

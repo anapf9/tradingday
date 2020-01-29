@@ -1,15 +1,15 @@
 <template>
-  <div>
       <button class="button"
+      @click="$emit('onClick', label)"
       :class="{ double, triple, operation }">
           {{ label }}
       </button>
-  </div>
 </template>
 
 <script>
 export default {
   props: {
+    // define os parametros
     label: {},
     operation: { type: Boolean },
     double: { type: Boolean },
