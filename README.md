@@ -1,4 +1,4 @@
-# stock-trader
+# ÉGUATrader
 A simple app thats simulate buy and sell of actions in trading market.
 Use vuetify, vuex and axios.
 
