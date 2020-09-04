@@ -2,7 +2,7 @@
   <v-container id="bankConfig" fluid>
     <h1>Escolha a sua carteira ou crie uma</h1>
     <div class="mt-5">
-      <v-row class="pa-4" justify="start" align="center" d-flex flex-row flat tile>
+      <v-row class="pa-4" justify="start" align="center" d-flex flex-row tile>
         <wallet transition="slide-x-transition" @edit="selectAccountToEdit" />
         <div>
           <v-btn rounded class="ma-2" color="kiclous">

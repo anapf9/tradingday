@@ -5,14 +5,13 @@
     <v-spacer></v-spacer>
     <v-btn @click="endDay">FInalizar o dia</v-btn>
     <v-menu offset-y>
-      <v-btn slot="activator">Salvar & Carregar</v-btn>
+      <template v-slot:activator="{ on, attrs }">
+        <v-btn v-bind="attrs" v-on="on">Salvar & Carregar</v-btn>
+      </template>
       <v-list>
-        <v-list-tile @click="saveData">
-          <v-list-tile-title>Salvar Dados</v-list-tile-title>
-        </v-list-tile>
-        <v-list-tile @click="loadDataLocal">
-          <v-list-tile-title>Carregar Dados</v-list-tile-title>
-        </v-list-tile>
+        <v-list-item v-for="option in options" :key="option.id" @click="optionSelect(option.id)">
+          <v-list-item-title>{{ option.text}}</v-list-item-title>
+        </v-list-item>
       </v-list>
     </v-menu>
     <v-layout aling-center>
@@ -24,6 +23,14 @@
 <script>
 import { mapActions, mapState } from "vuex";
 export default {
+  data() {
+    return {
+      options: [
+        { id: 1, text: "Salvar Dados" },
+        { id: 2, text: "Carregar Dados" }
+      ]
+    };
+  },
   computed: {
     funds() {
       return this.$store.getters.funds;
@@ -44,6 +51,13 @@ export default {
     },
     openSideMenu() {
       this.$store.state.drawer = !this.$store.state.drawer;
+    },
+    optionSelect(option) {
+      if (option === 1) {
+        this.saveData;
+        return;
+      }
+      this.endDay;
     }
   }
 };

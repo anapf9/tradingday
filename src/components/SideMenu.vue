@@ -1,5 +1,5 @@
 <template>
-  <v-navigation-drawer v-model="this.$store.state.drawer" app>
+  <v-navigation-drawer :value="this.$store.state.drawer" app>
     <v-list dense>
       <v-list-item @click="openSideMenu">
         <v-list-item-action>
@@ -7,12 +7,11 @@
         </v-list-item-action>
       </v-list-item>
       <v-list-item-content>
-        <v-list-item-title>Open Temporary Drawer</v-list-item-title>
-        <v-btn flat to="/">Inicio</v-btn>
-        <v-btn flat to="/portfolio">Portifólio</v-btn>
-        <v-btn flat to="/wallets">Carteiras</v-btn>
-        <v-btn flat to="/calculator">Calculadora</v-btn>
-        <v-btn flat to="/stocks">Ações</v-btn>
+        <v-btn to="/">Inicio</v-btn>
+        <v-btn to="/portfolio">Portifólio</v-btn>
+        <v-btn to="/wallets">Carteiras</v-btn>
+        <v-btn to="/calculator">Calculadora</v-btn>
+        <v-btn to="/stocks">Ações</v-btn>
       </v-list-item-content>
     </v-list>
   </v-navigation-drawer>
